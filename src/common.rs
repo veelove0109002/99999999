@@ -1540,6 +1540,13 @@ pub fn load_custom_client() {
                 .entry(config::keys::OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string())
                 .or_insert("Y".to_string());
         }
+        // Enable hiding connection management window by default
+        {
+            let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+            defaults
+                .entry("allow-hide-cm".to_string())
+                .or_insert("Y".to_string());
+        }
         return;
     }
     let Some(path) = std::env::current_exe().map_or(None, |x| x.parent().map(|x| x.to_path_buf()))
@@ -1562,6 +1569,13 @@ pub fn load_custom_client() {
         let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
         defaults
             .entry(config::keys::OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string())
+            .or_insert("Y".to_string());
+    }
+    // Enable hiding connection management window by default
+    {
+        let mut defaults = config::DEFAULT_SETTINGS.write().unwrap();
+        defaults
+            .entry("allow-hide-cm".to_string())
             .or_insert("Y".to_string());
     }
 }
